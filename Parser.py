@@ -3,19 +3,20 @@ import os
 import random
 import requests
 
+
 logo = '''
-  _____                            _____                    
- |_   _|                          |  __ \                   
-   | |  _ __ ___   __ _ _   _ _ __| |__) |_ _ _ __ ___  ___ 
-   | | | '_ ` _ \ / _` | | | | '__|  ___/ _` | '__/ __|/ _ |
-  _| |_| | | | | | (_| | |_| | |  | |  | (_| | |  \__ \  __/
- |_____|_| |_| |_|\__, |\__,_|_|  |_|   \__,_|_|  |___/\___|
-                   __/ |                                    
-                  |___/                                                                                                          
+  _____                                   _____                                
+ |_   _|                                 / ____|                               
+   | |  _ __ ___   __ _ _   _ _ __ _____| (___   ___ _ __ __ _ _ __   ___ _ __ 
+   | | | '_ ` _ \ / _` | | | | '__|______\___ \ / __| '__/ _` | '_ \ / _ \ '__|
+  _| |_| | | | | | (_| | |_| | |         ____) | (__| | | (_| | |_) |  __/ |   
+ |_____|_| |_| |_|\__, |\__,_|_|        |_____/ \___|_|  \__,_| .__/ \___|_|   
+                   __/ |                                      | |              
+                  |___/                                       |_|              
 '''
 disclaimer = '''
                             Author: aqswdefr746
-                               Version: 0.2
+                               Version: 0.3
 ############################### DISCLAIMER ################################
 | All images are publicly available and are public. The parser simply     |
 | generates random links and, if the image exists, downloads it.          |                             
@@ -34,9 +35,9 @@ str4 = str1 + str2 + str3
 ls = list(str4)
 #
 #
-store =os.getcwd()
-if not os.path.exists(store):
-    os.makedirs(store)
+VALID_PATH = "images"
+if not os.path.exists(VALID_PATH):
+    os.mkdir(VALID_PATH)
 while True:
     try:
         random.shuffle(ls)
@@ -48,7 +49,7 @@ while True:
         print(url,'is working')
         if response.status_code == 200:
             r = requests.get(urrl, stream=True)  # stream for partial download
-            with open(img+'.png', 'bw') as f:
+            with open(os.path.join(VALID_PATH, img)+".png", 'bw') as f:
                 for chunk in r.iter_content(8192):
                     f.write(chunk)
         pass
