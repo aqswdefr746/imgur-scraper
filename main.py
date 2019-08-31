@@ -46,7 +46,7 @@ while True:
         urrl = 'https://' + 'i.imgur.com' + '/' + img + '.jpg'
         response = requests.head(url)
         response.raise_for_status()
-        print(url,'is working')
+        print('Valid[+]:'+url)
         if response.status_code == 200:
             r = requests.get(urrl, stream=True)  # stream for partial download
             with open(os.path.join(VALID_PATH, img)+".jpg", 'bw') as f:
@@ -54,5 +54,5 @@ while True:
                     f.write(chunk)
         pass
     except requests.exceptions.HTTPError as err:
-        print(url, 'is not working')
+        print('NOT valid[-]:'+url)
         pass
