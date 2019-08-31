@@ -10,4 +10,4 @@ pip install requests
 
 pip install random2
 
-python3 Parser.py
+python3 main.py
