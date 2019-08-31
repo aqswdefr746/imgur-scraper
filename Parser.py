@@ -40,7 +40,7 @@ if not os.path.exists(store):
 while True:
     try:
         random.shuffle(ls)
-        img = ''.join([random.choice(ls) for x in range(7)])
+        img = ''.join([random.choice(ls) for x in range(5)])
         url = 'https://' + 'imgur.com' + '/' + img
         urrl = 'https://' + 'i.imgur.com' + '/' + img + '.png'
         response = requests.head(url)
