@@ -3,11 +3,6 @@ import os
 import random
 import requests
 from threading import Thread
-try:
-    if os.name() == 'linux':
-        os.system()
-except:
-    os.system('color b')
 
 logo = '''
   _____                              _____                                
