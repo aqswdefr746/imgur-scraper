@@ -5,21 +5,21 @@ import requests
 from threading import Thread
 
 logo = '''
-  _____                              _____                                
- |_   _|                            / ____|                               
-   | |  _ __ ___   __ _ _   _ _ __ | (___   ___ _ __ __ _ _ __   ___ _ __ 
+  _____                              _____
+ |_   _|                            / ____|
+   | |  _ __ ___   __ _ _   _ _ __ | (___   ___ _ __ __ _ _ __   ___ _ __
    | | | '_ ` _ \ / _` | | | | '__| \___ \ / __| '__/ _` | '_ \ / _ \ '__|
-  _| |_| | | | | | (_| | |_| | |    ____) | (__| | | (_| | |_) |  __/ |   
- |_____|_| |_| |_|\__, |\__,_|_|   |_____/ \___|_|  \__,_| .__/ \___|_|   
-                   __/ |                                 | |              
-                  |___/                                  |_|              
+  _| |_| | | | | | (_| | |_| | |    ____) | (__| | | (_| | |_) |  __/ |
+ |_____|_| |_| |_|\__, |\__,_|_|   |_____/ \___|_|  \__,_| .__/ \___|_|
+                   __/ |                                 | |
+                  |___/                                  |_|
 '''
 disclaimer = '''
                             Author: aqswdefr746
                                Version: 0.4
 ############################### DISCLAIMER ################################
 | All images are publicly available and are public. The parser simply     |
-| generates random links and, if the image exists, downloads it.          |                             
+| generates random links and, if the image exists, downloads it.          |
 ###########################################################################
 '''
 print(logo)
@@ -49,9 +49,13 @@ def scraper(ls):
 			print('Valid[+]:'+url)
 			if response.status_code == 200:
 				r = requests.get(urrl, stream=True)  # stream for partial download
-				with open(os.path.join(VALID_PATH, img)+".jpg", 'bw') as f:
-					for chunk in r.iter_content(8192):
-						f.write(chunk)
+				file_size = int(r.headers['Content-Length'])
+				if file_size == 503:  # Check file size not found image
+					print('NOT valid[-]:'+url)
+				else:
+					with open(os.path.join(VALID_PATH, img)+".jpg", 'bw') as f:
+						for chunk in r.iter_content(8192):
+							f.write(chunk)
 			pass
 		except requests.exceptions.HTTPError as err:
 			print('NOT valid[-]:'+url)
